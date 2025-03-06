@@ -1,3 +1,4 @@
+import AddLiquidity from "@/components/AddLiquidity";
 import ApproveToken from "@/components/ApproveToken";
 import { OutletContext } from "@/components/Layout";
 import useMetamask from "@/hooks/useMetamask";
@@ -5,8 +6,13 @@ import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useOutletContext } from "react-router-dom";
 
 function LiquidityPage() {
-  const { signer, setSigner, tokenAContract, tokenBContract } =
-    useOutletContext<OutletContext>();
+  const {
+    signer,
+    setSigner,
+    tokenAContract,
+    tokenBContract,
+    liquidityPoolContract,
+  } = useOutletContext<OutletContext>();
 
   const { connectWallet } = useMetamask(setSigner);
 
@@ -32,6 +38,10 @@ function LiquidityPage() {
         tokenName="Token B"
         signer={signer}
         tokenContract={tokenBContract}
+      />
+      <AddLiquidity
+        signer={signer}
+        liquidityPoolContract={liquidityPoolContract}
       />
     </Flex>
   );
