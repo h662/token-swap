@@ -1,5 +1,6 @@
 import AddLiquidity from "@/components/AddLiquidity";
 import ApproveToken from "@/components/ApproveToken";
+import CurrentLiquidity from "@/components/CurrentLiquidity";
 import { OutletContext } from "@/components/Layout";
 import useMetamask from "@/hooks/useMetamask";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
@@ -29,6 +30,10 @@ function LiquidityPage() {
 
   return (
     <Flex direction="column" spaceY={4} mt={8}>
+      <CurrentLiquidity
+        signer={signer}
+        liquidityPoolContract={liquidityPoolContract}
+      />
       <ApproveToken
         tokenName="Token A"
         signer={signer}
