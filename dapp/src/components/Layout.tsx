@@ -2,13 +2,17 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import { Box } from "@chakra-ui/react";
 import { ethers, JsonRpcSigner } from "ethers";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Contract } from "ethers";
 import TokenMakerABI from "@/abis/TokenMakerABI.json";
 import LiquidityPoolABI from "@/abis/LiquidityPoolABI.json";
 
 export interface OutletContext {
   signer: JsonRpcSigner | null;
+  setSigner: Dispatch<SetStateAction<JsonRpcSigner | null>>;
+  tokenAContract: Contract | null;
+  tokenBContract: Contract | null;
+  liquidityPoolContract: Contract | null;
 }
 
 function Layout() {
@@ -46,15 +50,19 @@ function Layout() {
     );
   }, [signer]);
 
-  useEffect(() => console.log(tokenAContract), [tokenAContract]);
-  useEffect(() => console.log(tokenBContract), [tokenBContract]);
-  useEffect(() => console.log(liquidityPoolContract), [liquidityPoolContract]);
-
   return (
     <>
       <Header signer={signer} setSigner={setSigner} />
       <Box as="main" bgColor="red.100" maxW={1024} mx="auto">
-        <Outlet context={{ signer }} />
+        <Outlet
+          context={{
+            signer,
+            setSigner,
+            tokenAContract,
+            tokenBContract,
+            liquidityPoolContract,
+          }}
+        />
       </Box>
     </>
   );
