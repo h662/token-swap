@@ -28,7 +28,10 @@ function SwapPage() {
         signer={signer}
         liquidityPoolContract={liquidityPoolContract}
       />
-      <SwapToken />
+      <SwapToken
+        signer={signer}
+        liquidityPoolContract={liquidityPoolContract}
+      />
     </Flex>
   );
 }
