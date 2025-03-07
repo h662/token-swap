@@ -2,6 +2,7 @@ import AddLiquidity from "@/components/AddLiquidity";
 import ApproveToken from "@/components/ApproveToken";
 import CurrentLiquidity from "@/components/CurrentLiquidity";
 import { OutletContext } from "@/components/Layout";
+import RemoveLiquidity from "@/components/RemoveLiquidity";
 import useMetamask from "@/hooks/useMetamask";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useOutletContext } from "react-router-dom";
@@ -45,6 +46,10 @@ function LiquidityPage() {
         tokenContract={tokenBContract}
       />
       <AddLiquidity
+        signer={signer}
+        liquidityPoolContract={liquidityPoolContract}
+      />
+      <RemoveLiquidity
         signer={signer}
         liquidityPoolContract={liquidityPoolContract}
       />

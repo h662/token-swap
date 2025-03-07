@@ -28,8 +28,6 @@ function AddLiquidity({ signer, liquidityPoolContract }: AddLiquidityProps) {
     try {
       setIsLoading(true);
 
-      console.log(ethers.parseUnits(tokenAAmount, 18));
-
       const tx = await liquidityPoolContract.addLiquidity(
         ethers.parseUnits(tokenAAmount, 18),
         ethers.parseUnits(tokenBAmount, 18)

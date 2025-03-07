@@ -1,8 +1,8 @@
 import { AiOutlineSwap } from "react-icons/ai";
 import { Button, Flex, Input } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
-import { useEffect, useState } from "react";
-import { JsonRpcSigner } from "ethers";
+import { FormEvent, useEffect, useState } from "react";
+import { ethers, JsonRpcSigner } from "ethers";
 import { Contract } from "ethers";
 import useInputPrice from "@/hooks/useInputPrice";
 
@@ -31,6 +31,45 @@ function SwapToken({ signer, liquidityPoolContract }: SwapTokenProps) {
     isReverse
   );
 
+  const tokenSwap = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (
+      !signer ||
+      !liquidityPoolContract ||
+      isNaN(Number(tokenA)) ||
+      Number(tokenA) === 0 ||
+      isNaN(Number(tokenB)) ||
+      Number(tokenB) === 0
+    ) {
+      return;
+    }
+
+    try {
+      if (isReverse) {
+        const tx = await liquidityPoolContract.swapAForB(
+          ethers.parseUnits(tokenA, 18),
+          ethers.parseUnits(tokenB, 18)
+        );
+
+        const res = await tx.wait();
+
+        console.log(res);
+      } else {
+        const tx = await liquidityPoolContract.swapBForA(
+          ethers.parseUnits(tokenB, 18),
+          ethers.parseUnits(tokenA, 18)
+        );
+
+        const res = await tx.wait();
+
+        console.log(res);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     if (isNaN(Number(tokenA)) || Number(tokenA) === 0 || !isReverse) return;
 
@@ -44,12 +83,13 @@ function SwapToken({ signer, liquidityPoolContract }: SwapTokenProps) {
   }, [tokenB]);
 
   return (
-    <form>
+    <form onSubmit={tokenSwap}>
       <Flex
         direction={isReverse ? "row" : "row-reverse"}
         gap={4}
-        bgColor="blue.100"
         alignItems="center"
+        maxW={512}
+        mx="auto"
       >
         <Field label="Token A">
           <Input
