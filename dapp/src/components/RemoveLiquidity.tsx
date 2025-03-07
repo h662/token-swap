@@ -1,16 +1,20 @@
 import { Button, Flex, Input } from "@chakra-ui/react";
 import { Contract, ethers } from "ethers";
 import { JsonRpcSigner } from "ethers";
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 
 interface RemoveLiquidityProps {
   signer: JsonRpcSigner | null;
   liquidityPoolContract: Contract | null;
+  toggleCurrent: boolean;
+  setToggleCurrent: Dispatch<SetStateAction<boolean>>;
 }
 
 function RemoveLiquidity({
   signer,
   liquidityPoolContract,
+  toggleCurrent,
+  setToggleCurrent,
 }: RemoveLiquidityProps) {
   const [liquidityAmount, setLiquidityAmount] = useState("0");
   const [isLoading, setIsLoading] = useState(false);
@@ -29,9 +33,9 @@ function RemoveLiquidity({
         ethers.parseUnits(liquidityAmount, 18)
       );
 
-      const res = await tx.wait();
+      await tx.wait();
 
-      console.log(res);
+      setToggleCurrent(!toggleCurrent);
     } catch (error) {
       console.error(error);
     } finally {

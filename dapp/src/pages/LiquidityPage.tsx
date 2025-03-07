@@ -15,6 +15,7 @@ function LiquidityPage() {
     tokenBContract,
     liquidityPoolContract,
     toggleCurrent,
+    setToggleCurrent,
   } = useOutletContext<OutletContext>();
 
   const { connectWallet } = useMetamask(setSigner);
@@ -50,10 +51,14 @@ function LiquidityPage() {
       <AddLiquidity
         signer={signer}
         liquidityPoolContract={liquidityPoolContract}
+        toggleCurrent={toggleCurrent}
+        setToggleCurrent={setToggleCurrent}
       />
       <RemoveLiquidity
         signer={signer}
         liquidityPoolContract={liquidityPoolContract}
+        toggleCurrent={toggleCurrent}
+        setToggleCurrent={setToggleCurrent}
       />
     </Flex>
   );

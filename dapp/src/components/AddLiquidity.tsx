@@ -1,14 +1,21 @@
 import { Button, Flex, Input } from "@chakra-ui/react";
 import { Contract, ethers } from "ethers";
 import { JsonRpcSigner } from "ethers";
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 
 interface AddLiquidityProps {
   signer: JsonRpcSigner | null;
   liquidityPoolContract: Contract | null;
+  toggleCurrent: boolean;
+  setToggleCurrent: Dispatch<SetStateAction<boolean>>;
 }
 
-function AddLiquidity({ signer, liquidityPoolContract }: AddLiquidityProps) {
+function AddLiquidity({
+  signer,
+  liquidityPoolContract,
+  toggleCurrent,
+  setToggleCurrent,
+}: AddLiquidityProps) {
   const [tokenAAmount, setTokenAAmount] = useState("0");
   const [tokenBAmount, setTokenBAmount] = useState("0");
   const [isLoading, setIsLoading] = useState(false);
@@ -33,9 +40,9 @@ function AddLiquidity({ signer, liquidityPoolContract }: AddLiquidityProps) {
         ethers.parseUnits(tokenBAmount, 18)
       );
 
-      const res = await tx.wait();
+      await tx.wait();
 
-      console.log(res);
+      setToggleCurrent(!toggleCurrent);
     } catch (error) {
       console.error(error);
     } finally {
