@@ -53,7 +53,7 @@ function Layout() {
   return (
     <>
       <Header signer={signer} setSigner={setSigner} />
-      <Box as="main" bgColor="red.100" maxW={1024} mx="auto">
+      <Box as="main" maxW={1024} mx="auto">
         <Outlet
           context={{
             signer,
