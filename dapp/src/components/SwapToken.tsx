@@ -1,7 +1,13 @@
 import { AiOutlineSwap } from "react-icons/ai";
 import { Button, Flex, Input } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
-import { FormEvent, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { ethers, JsonRpcSigner } from "ethers";
 import { Contract } from "ethers";
 import useInputPrice from "@/hooks/useInputPrice";
@@ -11,6 +17,8 @@ interface SwapTokenProps {
   tokenAContract: Contract | null;
   tokenBContract: Contract | null;
   liquidityPoolContract: Contract | null;
+  toggleCurrent: boolean;
+  setToggleCurrent: Dispatch<SetStateAction<boolean>>;
 }
 
 function SwapToken({
@@ -18,6 +26,8 @@ function SwapToken({
   tokenAContract,
   tokenBContract,
   liquidityPoolContract,
+  toggleCurrent,
+  setToggleCurrent,
 }: SwapTokenProps) {
   const [isReverse, setIsReverse] = useState(true);
   const [isApproved, setIsApproved] = useState(false);
@@ -122,6 +132,7 @@ function SwapToken({
       }
 
       setIsApproved(false);
+      setToggleCurrent(!toggleCurrent);
     } catch (error) {
       console.error(error);
     }

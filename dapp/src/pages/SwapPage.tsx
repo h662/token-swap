@@ -12,6 +12,8 @@ function SwapPage() {
     tokenAContract,
     tokenBContract,
     liquidityPoolContract,
+    toggleCurrent,
+    setToggleCurrent,
   } = useOutletContext<OutletContext>();
 
   const { connectWallet } = useMetamask(setSigner);
@@ -32,12 +34,15 @@ function SwapPage() {
       <CurrentLiquidity
         signer={signer}
         liquidityPoolContract={liquidityPoolContract}
+        toggleCurrent={toggleCurrent}
       />
       <SwapToken
         signer={signer}
         tokenAContract={tokenAContract}
         tokenBContract={tokenBContract}
         liquidityPoolContract={liquidityPoolContract}
+        toggleCurrent={toggleCurrent}
+        setToggleCurrent={setToggleCurrent}
       />
     </Flex>
   );

@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 interface CurrentLiquidityProps {
   signer: JsonRpcSigner | null;
   liquidityPoolContract: Contract | null;
+  toggleCurrent: boolean;
 }
 
 function CurrentLiquidity({
   signer,
   liquidityPoolContract,
+  toggleCurrent,
 }: CurrentLiquidityProps) {
   const [totalLiquidity, setTotalLiquidity] = useState("0");
   const [reserveA, setReserveA] = useState("0");
@@ -56,7 +58,7 @@ function CurrentLiquidity({
     getTotalLiquidity();
     getReserveA();
     getReserveB();
-  }, [signer, liquidityPoolContract]);
+  }, [signer, liquidityPoolContract, toggleCurrent]);
 
   return (
     <Table.Root>

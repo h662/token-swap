@@ -14,6 +14,7 @@ function LiquidityPage() {
     tokenAContract,
     tokenBContract,
     liquidityPoolContract,
+    toggleCurrent,
   } = useOutletContext<OutletContext>();
 
   const { connectWallet } = useMetamask(setSigner);
@@ -34,6 +35,7 @@ function LiquidityPage() {
       <CurrentLiquidity
         signer={signer}
         liquidityPoolContract={liquidityPoolContract}
+        toggleCurrent={toggleCurrent}
       />
       <ApproveToken
         tokenName="Token A"

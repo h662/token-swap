@@ -13,6 +13,8 @@ export interface OutletContext {
   tokenAContract: Contract | null;
   tokenBContract: Contract | null;
   liquidityPoolContract: Contract | null;
+  toggleCurrent: boolean;
+  setToggleCurrent: Dispatch<SetStateAction<boolean>>;
 }
 
 function Layout() {
@@ -21,6 +23,7 @@ function Layout() {
   const [tokenBContract, setTokenBContract] = useState<Contract | null>(null);
   const [liquidityPoolContract, setLiquidityPoolContract] =
     useState<Contract | null>(null);
+  const [toggleCurrent, setToggleCurrent] = useState(true);
 
   useEffect(() => {
     if (!signer) return;
@@ -61,6 +64,8 @@ function Layout() {
             tokenAContract,
             tokenBContract,
             liquidityPoolContract,
+            toggleCurrent,
+            setToggleCurrent,
           }}
         />
       </Box>
